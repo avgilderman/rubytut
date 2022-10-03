@@ -1,5 +1,5 @@
 number1 = 598
-number2 = 474
+number2 = 598
 if number1 == number2
 	puts "число number1 и number2 равны"
 else
