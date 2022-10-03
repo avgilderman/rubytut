@@ -5,4 +5,4 @@ puts "Первое число: " + number1.to_s
 puts "Второе число: " + number2.to_s
 puts "Среднее: " + number3.to_s
 average = (number1 + number2) / 2
-average = number3
+number3 = average
