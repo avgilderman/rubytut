@@ -1,3 +1,7 @@
-number1 = 7895347654387
+number1 = 21
 number2 = number1 % 2
-puts number2
+if number2 == 0
+	puts "Число " + number1.to_s + " четное"
+else
+	puts "Число " + number1.to_s + " нечетное"
+end
