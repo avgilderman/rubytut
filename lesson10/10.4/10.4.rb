@@ -40,3 +40,4 @@ else
 end
 end
 puts "Правильных ответов: #{count_right_answers} из 3"
+puts
