@@ -40,4 +40,8 @@ else
 end
 end
 puts "Правильных ответов: #{count_right_answers} из 3"
+<<<<<<< HEAD
 puts
+=======
+wewfwefesdfdsfsdfds
+>>>>>>> 1c43e959027aee3373945ead3a3371eef1a68d7b
