@@ -1,17 +1,17 @@
 # Объявляем метод
 def circle_square(radius)
-  number_p = 3.14.to_f
-  area = (number_p * (radius.to_i * 2)
+  rad = radius.to_i
+  number_p = 3.14159
+  area = (number_p * (radius * radius))
   return area
 end
 
-puts circle_square(10)
-# puts "Введите радиус круга №1:"
-# user_answer_1 = gets.to_i
-# puts "Введите радиус круга №2:"
-# user_answer_2 = gets.to_i
+puts "Введите радиус круга №1:"
+user_answer_1 = gets.to_f
+puts "Введите радиус круга №2:"
+user_answer_2 = gets.to_f
 
-# puts "Площадь круга: №1: #{}, а площадь круга №2: #{}"
+puts "Площадь круга: №1: #{circle_square(user_answer_1)}, а площадь круга №2: #{circle_square(user_answer_2)}"
 
 
 # # > 10
