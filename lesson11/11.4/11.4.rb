@@ -5,7 +5,7 @@ end
 def shuffle_quote(quote)
    array_words = quote.split
    results = []
-   
+
    array_words.each do |word|
    results << shuffle_word(word)
    end
@@ -14,7 +14,7 @@ def shuffle_quote(quote)
 end
 
 puts "Введите фразу:"
-puts 
+puts
 quote = gets.chomp
 
 puts shuffle_quote(quote)
