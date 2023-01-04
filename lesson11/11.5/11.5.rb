@@ -1,7 +1,3 @@
-puts "Сколько вам енотов?"
-puts
-answer = $stdin.gets.chomp.to_i
-
 def inclination(number, word1, word2, word3)
 big_number = number % 100
 other_number = number % 10
@@ -11,12 +7,16 @@ other_number = number % 10
 
   case other_number
   when 1
-    return word1
+    word1
   when (2..4)
-    return word2
+    word2
   else
-    return word3
+    word3
   end
 end
 
+puts "Сколько вам енотов?"
+answer = $stdin.gets.to_i
+
+puts
 puts "Вот Вам #{answer} #{inclination(answer, "енот", "енота", "енотов")}"
