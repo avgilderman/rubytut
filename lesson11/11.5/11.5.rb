@@ -5,13 +5,10 @@ other_number = number % 10
     return word3
   end
 
-  case other_number
-  when 1
-    word1
-  when (2..4)
-    word2
-  else
-    word3
+case other_number
+  when 1 then word1
+  when (2..4) then word2
+  else word3
   end
 end
 
