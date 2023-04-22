@@ -3,13 +3,11 @@ def rub_to_usd(rate, how_many_rub)
 end
 
 def diff(rate, how_many_rub, how_many_usd)
-  rub_to_usd = rub_to_usd(rate, how_many_rub)
-  (how_many_usd - rub_to_usd).abs
+  (how_many_usd - rub_to_usd(rate, how_many_rub)).abs
 end
 
 def how_many_buy(rate, how_many_rub, how_many_usd)
-  diff = diff(rate, how_many_rub, how_many_usd)
-  (diff / 2).round(2)
+  (diff(rate, how_many_rub, how_many_usd) / 2).round(2)
 end
 
 puts "Какой сейчас курс доллара к рублю?"
