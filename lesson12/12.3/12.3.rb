@@ -3,8 +3,8 @@ def rub_to_usd(rate, how_many_rub)
 end
 
 def diff(rate, how_many_rub, how_many_usd)
-  (how_many_usd - rub_to_usd(rate, how_many_rub)).abs
-end
+  (how_many_usd - (rate, how_many_rub)).abs
+endrub_to_usd
 
 def how_many_buy(rate, how_many_rub, how_many_usd)
   (diff(rate, how_many_rub, how_many_usd) / 2).round(2)
