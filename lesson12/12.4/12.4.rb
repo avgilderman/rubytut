@@ -24,9 +24,9 @@ def index_bmi_string(index)
 end
 
 puts "Введите ваш рост (в cм.):"
-height = gets.to_f
+height = gets.to_i
 puts "Введите ваш вес (в кг.):"
-weight = gets.to_f
+weight = gets.to_i
 
 index = BMI(height, weight)
 
