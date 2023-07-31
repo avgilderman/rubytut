@@ -1,21 +1,21 @@
 class Question
-  def initialize(questinon, answer, points)
-    @questinon = questinon
-    @answer = answer
-    @points = points
+  def initialize(question, right_answer, scores)
+    @right_answer = right_answer
+    @question = question
+    @scores = scores
   end
   
-  #геттеры:
-  def questinon
-    return @questinon
+  def right_answer
+    return @right_answer
   end
 
-  def answer
-    return @answer
+  def question
+    return @question
   end
 
-  def points
-    return @points
+  def scores
+    return @scores
   end
 
 end
+
