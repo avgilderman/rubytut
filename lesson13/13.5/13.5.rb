@@ -21,7 +21,7 @@ puts "Мини-викторина. Ответьте на вопросы:"
 puts 
 
 5.times do |index|
-  shuffle_questions = array_questions.sample
+  shuffle_questions = array_ questions.sample
   array_questions.delete(shuffle_questions)
   puts "Вопрос #{index + 1}. #{shuffle_questions.question}"
   puts "Введите ответ:"
