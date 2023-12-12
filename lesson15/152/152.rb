@@ -1,35 +1,32 @@
-require_relative "lib/film" # подключили класс
-FILMS_PATH = "/data/*.txt" # подключили папку с файлами
+require_relative "lib/film"
+FILMS_PATH = "/data/*.txt"
 
-# переменные, которые хз что делают
+# амнистированные
+all_directors = []
+
+# пока не амнистированные
 answer_index = 0
 scores = 0
 direcors = ["режиссёра", "режиссёров"]
 user_answer = nil
-all_directors = []
 uniq_directors = []
 
-# создаем массив адресов
+# массив адресов
 films_files = Dir["#{__dir__}#{FILMS_PATH}"]
 .sort
-.map do |item| # пройтись по каждому адресу
+.map do |item| # пройтись по каждому адресу файла
   File.readlines(item, chomp: true, encoding: 'UTF-8')
-end # прочитать каждый адрес, и из каждого адреса прочитать все строки файла в виде отдельных элементов. Получился массив массивов.
+end # прочитать каждый адрес, и из каждого адреса прочитать все строки файла в виде отдельных элементов массива. Получился массив массивов.
 
-objects_films = films_files.map do |item| #пробегаем по массиву с массивами строк и каждый массив разбиваем на строки и добавляем как аргумент при создании класса film. Созданные объекты класса засовываем в новый массив объектов
+objects_films = films_files.map do |item| #пробегаем по массиву с массивами строк, и каждый массив разбивая на строки - добавляем их как аргумент при создании экземпляра класса film. Созданные экземпляры класса засовываем в новый массив экземпляров класса
   Film.new(item[0], item[1], item[2])
 end
 
-objects_films.each do |film|
-  all_directors << film.director
+objects_films.each do |item| #создаем массив директоров с уникальными данными
+  all_directors << item.director
 end
 
-puts 
-
-
-
-
-puts "Программа «Фильм на вечер»"
+puts "Программа «Фильм на вечер»" #
 puts
 
 uniq_directors.uniq
