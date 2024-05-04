@@ -30,6 +30,6 @@ until game.over? #проверяем не закончилась ли игра?
   console_interface.print_out #выводит интерфейс игры
   letter = console_interface.get_input #обработка введеной пользователем буквы
   game.play!(letter) #записываем ввередную букву в массив введеных пользователем букв
-end 
+end
 
 console_interface.print_out #вывести финальное состояние игры
