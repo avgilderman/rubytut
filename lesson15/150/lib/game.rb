@@ -33,6 +33,10 @@ class Game
   def lost? #вернет true, если игра окончена
    return errors_allowed == 0
   end
+
+  # def normalize_letter(@letters)
+  #   return @letters
+  # end
   
   def over? #вернет true если метод won? или метод lost? вернули true
     return won? || lost?
@@ -53,5 +57,7 @@ class Game
   def won? #true, если все элементы @letters содержатся в @user_guesses(разность пуста)
     return (@letters - @user_guesses).empty?
   end
+
+binding.irb
 
 end
