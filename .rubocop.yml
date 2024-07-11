@@ -1,6 +1,5 @@
 AllCops:
   NewCops: enable
-
+  DisabledByDefault: false 
 Style/WordArray:
   Enabled: false
-
