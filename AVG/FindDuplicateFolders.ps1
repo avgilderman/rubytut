@@ -1,5 +1,5 @@
 # Замените "C:\" на путь к нужной вам папке
-$directory = "D:\"
+$directory = "D:\books2\"
 
 # Функция для поиска папок с одинаковыми названиями внутри одной папки
 function FindDuplicateFolders {
@@ -16,7 +16,7 @@ function FindDuplicateFolders {
     foreach ($item in $items) {
         $folderName = $item.Name
         if ($foldersDict.ContainsKey($folderName)) {
-            # Если в хэштаблице уже есть папка с таким же названием,
+            # Еслдаваи в хэштаблице уже есть папка с таким же названием,
             # значит нашлись две папки с одинаковыми названиями в одной папке
             Write-Host "Duplicate folders found:"
             Write-Host "   $($item.FullName)"
