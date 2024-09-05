@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Логика работы калькулятора
+# Логика работы калькулятора (доработать обработку ошибки деления на 0)
 def calc(operation, first_operand, second_operand)
   case operation
   when '+'
@@ -14,7 +14,7 @@ def calc(operation, first_operand, second_operand)
   end
 end
 
-# округление(если необходимо)
+# округление
 def round(value)
   return format('%.2f', value) unless value.is_a?(Integer)
 
@@ -27,10 +27,12 @@ def valid_operation?(value)
   operations.include?(value)
 end
 
-# обьявляем переменные
-operation = nil
-first_operand = nil
-second_operand = nil
+def input
+  yield
+  input
+end
+
+puts 'Введите первое число:' until input.is_a?(Numeric)
 
 # ввод первого числа с проверкой на то что бы было введено именно число
 until first_operand.is_a?(Numeric)
@@ -51,4 +53,8 @@ until second_operand.is_a?(Numeric)
 end
 
 # запустить метод calc с заранее подставленными данными из переменных
-puts calc(operation, first_operand, second_operand)
+calc(operation, first_operand, second_operand)
+puts
+operation = nil
+first_operand = nil
+second_operand = nil
