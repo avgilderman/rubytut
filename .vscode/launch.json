@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "rdbg",
+      "name": "Attach to running Ruby",
+      "request": "attach",
+      "remoteHost": "127.0.0.1",
+      "remotePort": "12345",
+      "runtimeVersion": "ruby-3.3.4"  // Убедись, что версия правильная
+    }
+  ]
+}

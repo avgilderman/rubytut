@@ -1,49 +1,37 @@
 # frozen_string_literal: true
 
-require 'find'
-require 'text' # Для использования алгоритма Левенштейна
+PATH = '/Volumes/Android SD/books2' # путь для работы программы
+COMPARE_LEVEL = 3 # степень сравнение алгоритма
 
-# Метод для получения всех поддиректорий в указанной директории
-def subdirectories_in(directory_path)
-  Dir.entries(directory_path)
-     .select { |entry| File.directory?(File.join(directory_path, entry)) && !['.', '..'].include?(entry) }
-     .map { |entry| File.join(directory_path, entry) }
+require 'text'
+
+# список всех директорий
+def find_all_directories(path)
+  Dir.glob("#{path}/**/*").select { |item| File.directory?(item) }
 end
 
-# Метод для вычисления расстояния Левенштейна между названиями двух папок
-def similar_folders?(folder1, folder2, threshold)
-  Text::Levenshtein.distance(folder1, folder2) <= threshold
-end
+# похожие папки
+def find_similar_directories(list_directories, compare_level)
+  similar_directories = []
 
-# Метод для поиска похожих папок в пределах одной директории
-def check_similar_folders_in_directory(directory_path, similarity_threshold)
-  subdirectories = subdirectories_in(directory_path)
-  subdirectories.combination(2).each do |dir1, dir2|
-    folder1 = File.basename(dir1)
-    folder2 = File.basename(dir2)
+  list_directories.combination(2) do |dir1, dir2|
+    directories_name1 = File.basename(dir1)
+    directories_name2 = File.basename(dir2)
 
-    if similar_folders?(folder1, folder2, similarity_threshold)
-      puts "Похожие папки в #{directory_path}:\n#{dir1}\n#{dir2}\n"
-      return true
-    end
-  end
-  false
-end
+    # Рассчитываем расстояние Левенштейна
+    distance = Text::Levenshtein.distance(directories_name1, directories_name2)
 
-# Основной метод для поиска похожих папок во всех подкаталогах root_directory
-def find_similar_folders(root_directory, similarity_threshold)
-  duplicates_found = false
-
-  Find.find(root_directory) do |directory_path|
-    next unless File.directory?(directory_path)
-
-    duplicates_found = true if check_similar_folders_in_directory(directory_path, similarity_threshold)
+    # Если расстояние меньше порога, добавляем в список
+    similar_directories << [directories_name1, directories_name2, distance] if distance <= compare_level
   end
 
-  puts 'Похожие папки не найдены' unless duplicates_found
+  similar_directories
 end
 
-# Пример использования:
-root_directory = 'I:/books2'
-similarity_threshold = 3 # Максимально допустимое расстояние Левенштейна для схожих папок
-find_similar_folders(root_directory, similarity_threshold)
+list_directories = find_all_directories(PATH)
+similar_directories = find_similar_directories(list_directories, COMPARE_LEVEL)
+
+puts 'Найденные похожие папки:'
+similar_directories.each do |directory1, directory2, distance|
+  puts "#{directory1} - #{directory2}"
+end
