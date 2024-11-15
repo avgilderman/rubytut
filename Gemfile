@@ -1,4 +1,7 @@
-source 'https://rubygems.org'
-gem 'rubocop', require: false
-gem 'solargraph', group: :development
+# frozen_string_literal: true
 
+source 'https://rubygems.org'
+
+gem 'pry'
+gem 'pry-byebug'
+gem 'rubocop', require: false
