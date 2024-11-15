@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     net_dav (0.5.1)
       nokogiri
     nokogiri (1.16.7-aarch64-linux)
@@ -15,6 +17,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
+    public_suffix (6.0.1)
     racc (1.8.1)
 
 PLATFORMS
@@ -26,7 +29,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  addressable
   net_dav
 
 BUNDLED WITH
-   2.5.21
+   2.5.22

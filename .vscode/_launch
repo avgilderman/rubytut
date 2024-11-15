@@ -2,16 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug current file with rdbg",
       "type": "rdbg",
       "request": "launch",
-      "name": "Debug Current File",
       "script": "${file}",
+      "args": [],
       "askParameters": true
     },
     {
+      "name": "Attach with rdbg",
       "type": "rdbg",
-      "request": "attach",
-      "name": "Attach to Ruby Process",
+      "request": "attach"
     }
   ]
 }

@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-system('bundle install')
-
 require 'net/dav'
 require 'addressable/uri'
 require 'cgi'
 
 WEBDAV_URL = 'https://webdav.yandex.ru'
-CREDENTIALS_FILE = '/Users/avg/Documents/dav_cred.txt'
+CREDENTIALS_FILE = '/home/alex/credential/dav_cred.txt'
 SERIALS_PATH = '/films/serials'
 
 def read_credentials(file_path)
@@ -35,7 +33,6 @@ end
 
 # Чтение учетных данных из файла
 credentials = read_credentials(CREDENTIALS_FILE)
-
 # Получение списка файлов и директорий и вывод на экран
 puts webdav(credentials, WEBDAV_URL, SERIALS_PATH)
 
