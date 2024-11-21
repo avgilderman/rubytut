@@ -3,7 +3,6 @@
 require 'net/dav'
 require 'addressable/uri'
 require 'cgi'
-require 'pry-byebug'
 
 WEBDAV_URL = 'https://webdav.yandex.ru'
 CREDENTIALS_FILE = '/home/alex/credential/dav_cred.txt'

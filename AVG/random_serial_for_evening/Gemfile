@@ -4,3 +4,4 @@ source 'https://rubygems.org'
 
 gem 'addressable'
 gem 'net_dav'
+gem 'standard', group: 'development', require: false

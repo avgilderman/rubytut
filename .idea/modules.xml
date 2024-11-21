@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/.ruby-lsp.iml" filepath="$PROJECT_DIR$/.idea/modules/.ruby-lsp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/random_serial_for_evening.iml" filepath="$PROJECT_DIR$/.idea/modules/random_serial_for_evening.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/rubytut.iml" filepath="$PROJECT_DIR$/.idea/rubytut.iml" />
     </modules>
   </component>
