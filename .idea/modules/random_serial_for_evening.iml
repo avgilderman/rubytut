@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RUBY_MODULE" version="4">
+  <component name="ModuleRunConfigurationManager">
+    <shared />
+  </component>
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../../AVG/random_serial_for_evening">
+      <sourceFolder url="file://$MODULE_DIR$/../../AVG/random_serial_for_evening/features" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../AVG/random_serial_for_evening/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../AVG/random_serial_for_evening/test" isTestSource="true" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="RubyModuleProperties">
+    <option name="autoCreated" value="true" />
+  </component>
+</module>
