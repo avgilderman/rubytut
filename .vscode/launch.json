@@ -5,8 +5,9 @@
       "type": "rdbg",
       "request": "launch",
       "name": "Debug Current File",
+      "useBundler": false,
       "script": "${file}",
-      "askParameters": true
+      "askParameters": false
     },
     {
       "type": "rdbg",
