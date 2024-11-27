@@ -1,33 +1,36 @@
 # frozen_string_literal: true
 
-movies = [
-  'Зеленая миля,Фрэнк Дарабонт,1999',
-  'Побег из Шоушенка,Фрэнк Дарабонт,1994',
-  'Форрест Гамп,Роберт Земекис,1994',
-  'Список Шиндлера,Стивен Спилберг,1993',
-  '1+1,Оливье Накаш,2011',
-  'Властелин колец: Возвращение короля,Питер Джексон,2003',
-  'Тайна Коко,Ли Анкрич,2017',
-  'Интерстеллар,Кристофер Нолан,2014',
-  'Бойцовский клуб,Дэвид Финчер,1999',
-  'Унесённые призраками,Хаяо Миядзаки,2001',
-  'Криминальное чтиво,Квентин Тарантино,1994',
-  'Иван Васильевич меняет профессию,Леонид Гайдай,1973',
-  'Властелин колец: Братство Кольца,Питер Джексон,2001',
-  'Властелин колец: Две крепости,Питер Джексон,2002',
-  'Приключения Шерлока Холмса и доктора Ватсона: Собака Баскервилей,Игорь Масленников,1981',
-  'Король Лев,Роджер Аллерс,1994',
-  'Назад в будущее,Роберт Земекис,1985',
-  'Шрэк,Эндрю Адамсон,2001',
-  'Шерлок Холмс и доктор Ватсон,Игорь Масленников,1979',
-  'Достучаться до небес,Томас Ян,1997'
-]
+require 'fileutils'
 
-movies.each_with_index do |movie, index|
-  file_name = "#{index + 1}.txt"
-  File.open(file_name, 'w') do |file|
-    movie.split(',').each do |info|
-      file.puts info
+file_url = 'data/data.txt'
+
+def create_directory(name)
+  directory_path = File.join(__dir__, name.to_s)
+  return if Dir.exist?(directory_path)
+
+  FileUtils.mkdir_p(directory_path)
+end
+
+
+create_directory('archive')
+
+# адрес файла с которым будем работать
+file = File.join(__dir__, file_url)
+unless File.exist?(file)
+  puts "Файл не найден: #{file}"
+  exit 1
+end
+
+# вернуть чисто имя файла
+file_name = File.basename(file, File.extname(file))
+
+# читает построчной файл и создает новый файл и разрубает каждую строку исходного и записывает в новый файл
+File.foreach(file).with_index(1) do |line, index|
+  new_file_name = "#{file_name}_#{index}.txt"
+  new_file_path = File.join(archive_dir, new_file_name)
+  File.open(new_file_path, 'w') do |new_file|
+    line.split(',').each do |part|
+      new_file.puts part.strip.chomp
     end
   end
 end
