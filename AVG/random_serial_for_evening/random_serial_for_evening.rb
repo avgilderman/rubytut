@@ -5,7 +5,7 @@ require 'addressable/uri'
 require 'cgi'
 
 WEBDAV_URL = 'https://webdav.yandex.ru'
-CREDENTIALS_FILE = '/home/alex/credential/dav_cred.txt'
+CREDENTIALS_FILE = '/home/alex/base/credential/dav_cred.txt'
 SERIALS_PATH = '/films/serials'
 
 def read_credentials(file_path)
