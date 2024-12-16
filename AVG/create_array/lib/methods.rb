@@ -7,10 +7,10 @@ end
 
 # создаём директорию для создаваемых файлов
 def create_directory(name)
-  directory_path = File.join(File.expand_path('..', __dir__), name.to_s)
-  return "Директория #{name} уже существует" if Dir.exist?(directory_path)
+  new_directory_path = File.join(File.expand_path('..', __dir__), name.to_s)
+  return "Директория #{name} уже существует" if Dir.exist?(new_directory_path)
 
-  FileUtils.mkdir_p(directory_path)
+  FileUtils.mkdir_p(new_directory_path)
   puts "Директория #{name} создана"
 end
 
@@ -35,5 +35,3 @@ def create_files(full_file_path, folder_name, file_name)
   end
   puts "Файлы созданы в папке #{folder_name}"
 end
-
-

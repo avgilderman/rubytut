@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 puts 'Подбросим монетку!'
+
 random = rand(1000)
 if random == 1
   puts 'Монетка упала третьей стороной'
