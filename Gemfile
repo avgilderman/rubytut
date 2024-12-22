@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'observer', require: false
 gem 'pry', '0.14.2'
 gem 'pry-byebug'
 gem 'rubocop', require: false

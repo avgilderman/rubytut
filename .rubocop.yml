@@ -18,3 +18,5 @@ Layout/EmptyLines:
 Lint/UselessAssignment:
   Enabled: false
   
+Lint/UselessAssignment:
+  Enabled: false
