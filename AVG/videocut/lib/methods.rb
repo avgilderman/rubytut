@@ -11,7 +11,7 @@ def check_ffmpeg_installed
 
   unless system("#{ffmpeg_command} -version > /dev/null 2>&1")
     puts "Похоже, что FFmpeg не установлен или не доступен по пути: #{FFMPEG_PATH || 'PATH'}."
-    puts "Укажите вашу операционную систему: (1 - macOS, 2 - Linux, 3 - Windows)"
+    puts 'Укажите вашу операционную систему: (1 - macOS, 2 - Linux, 3 - Windows)'
     os_choice = gets.chomp.to_i
 
     case os_choice
@@ -22,7 +22,7 @@ def check_ffmpeg_installed
     when 3
       puts "\nДля установки FFmpeg на Windows:\n1. Скачайте FFmpeg с официального сайта: https://ffmpeg.org/download.html\n2. Добавьте путь до FFmpeg в переменную окружения PATH.\n"
     else
-      puts "Неизвестный выбор операционной системы. Установите FFmpeg вручную."
+      puts 'Неизвестный выбор операционной системы. Установите FFmpeg вручную.'
     end
 
     exit
@@ -54,7 +54,7 @@ def split_video(file_path, output_folder, max_size_mb)
     output_file = File.join(output_folder, "#{base_name}_part#{i + 1}.#{movie.container}")
 
     # Выполняем разделение
-    movie.transcode(output_file, { custom: %W(-ss #{start_time} -t #{part_duration}) })
+    movie.transcode(output_file, { custom: %W[-ss #{start_time} -t #{part_duration}] })
     puts "Создан файл: #{output_file}"
   end
 end
