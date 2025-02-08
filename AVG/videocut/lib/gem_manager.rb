@@ -1,45 +1,40 @@
 # frozen_string_literal: true
 
-# проверить и установить недостающие гемы
+require 'rubygems/dependency_installer'
+require_relative 'Library'
+
+# Автоматическая установка гемов перечисленных в массиве
 module GemManager
-  # проверка
+  # Проверка и установка переданного массива гемов
   def self.check_and_install_gems(required_gems)
-    required_gems.each do |gem_name|
-      if gem_installed?(gem_name)
-        puts "Гем '#{gem_name}' уже установлен."
-      else
-        install_gem(gem_name)
+    required_gems.each { |gem_name| installation_process(gem_name) }
+    puts 'Все необходимые гемы проверены'
+  end
+
+  # Процесс проверки и установки гема
+  def self.installation_process(gem_name)
+    return if Library.gem_installed?(gem_name) # возвращается обратно если гем установлен
+
+    # но если гем не установлен:
+    if install_gem(gem_name) # Попытка установки
+      unless Library.gem_installed?(gem_name) # Если гем не подключается
+        puts "Гем #{gem_name} установлен, но не подключается. Перезапустите приложение."
       end
+    else
+      puts "Не удалось установить гем #{gem_name}. Пожалуйста, установите его вручную."
     end
   end
 
-  private
-
-  # Проверяет, установлен ли гем
-  def self.gem_installed?(gem_name)
-    require gem_name
-    true
-  rescue LoadError
+  # попытка установки гема
+  def self.install_gem(gem_name)
+    installer = Gem::DependencyInstaller.new
+    installer.install(gem_name)
+    Gem.clear_paths
+    true # Возвращаем true если установка удалась
+  rescue StandardError => e
+    Library.puts_install_error(e, gem_name)
     false
   end
 
-  # Устанавливает гем, если пользователь согласен
-  def self.install_gem(gem_name)
-    puts "Гем '#{gem_name}' не установлен."
-    print 'Установить его сейчас? (y/n): '
-    answer = gets.chomp.downcase
-    if answer == 'y'
-      system("gem install #{gem_name}")
-      if gem_installed?(gem_name)
-        puts "Гем '#{gem_name}' успешно установлен!"
-      else
-        puts "Не удалось установить '#{gem_name}'. Проверьте вручную."
-      end
-    else
-      puts "Установите '#{gem_name}' вручную с помощью команды: gem install #{gem_name}"
-      exit
-    end
-  end
-
-  puts 'Все необходимые гемы готовы!'
+  private_class_method :installation_process, :install_gem
 end

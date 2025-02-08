@@ -1,22 +1,19 @@
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.3.6
-  DisabledByDefault: false 
-  
-Style/WordArray:
-  Enabled: false
+  DisabledByDefault: false
 
-Layout/TrailingEmptyLines:
-  Enabled: false
+# Style/WordArray:
+#   Enabled: false
 
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
+# Layout/TrailingEmptyLines:
+#   Enabled: false
 
-Layout/EmptyLines:
-  Enabled: false
+# Layout/EmptyLinesAroundBlockBody:
+#   Enabled: false
 
-Lint/UselessAssignment:
-  Enabled: false
-  
-Lint/UselessAssignment:
-  Enabled: false
+# Layout/EmptyLines:
+#   Enabled: false
+
+# Lint/UselessAssignment:
+#   Enabled: false
