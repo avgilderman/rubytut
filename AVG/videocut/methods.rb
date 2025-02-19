@@ -6,8 +6,9 @@ require 'streamio-ffmpeg'
 
 # внутреняя работа FFMPEG
 module FFMPEG
+  # проверяем установлен ли ffmpeg?
   def self.ffmpeg_installed?
-    FFMPEG::Movie.new('').metadata # проверяем созданием объекта и вызовом метода работу FFMPEG
+    FFMPEG::Movie.new('').metadata # проверяем ffmpeg созданием объекта и вызовом его метода
     true
   rescue StandardError
     # Если возникает ошибка, выбрасываем исключение с сообщением
