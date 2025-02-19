@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-install_gemfile
+require_relative 'avglib' # модуль с общими необходимыми методами
+AVGlib.install_gemfile # вызов метода для установки необходимых гемов
 require 'fileutils'
 require 'streamio-ffmpeg'
 
@@ -11,32 +12,30 @@ module FFMPEG
     FFMPEG::Movie.new('').metadata # проверяем ffmpeg созданием объекта и вызовом его метода
     true
   rescue StandardError
-    # Если возникает ошибка, выбрасываем исключение с сообщением
-    raise 'FFmpeg не найден. Установите его, следуя инструкциям на https://ffmpeg.org/download.html'
+    raise 'FFmpeg не найден. https://ffmpeg.org/download.html'
   end
 
   # Разделение видео на части
-  def self.split_video(file_path, output_folder, max_size_mb)
-    FileUtils.mkdir_p(output_folder)
-    base_name = File.basename(file_path, File.extname(file_path))
-    output_pattern = File.join(output_folder, "#{base_name}_part%03d.mp4")
+  def self.split_video(source_dir, output_dir, size_mb)
+    filename = File.basename(source_dir, File.extname(source_dir)) # имя файла из source_dir без расширения и пути
+    output_pattern = File.join(output_dir, "#{filename}_part%03d.mp4")
 
     command = [
-      'ffmpeg', '-i', file_path,
+      'ffmpeg', '-i', source_dir,
       '-c', 'copy', '-map', '0',
-      '-f', 'segment', '-segment_size', (max_size_mb * 1024 * 1024).to_s, # что за шляпааа?
+      '-f', 'segment', '-segment_size', (size_mb * 1024 * 1024).to_s, # что за шляпааа?
       '-reset_timestamps', '1',
       output_pattern
     ]
 
     system(*command)
-    puts "Разделение завершено: #{file_path}"
+    puts "Разделение завершено: #{source_dir}"
   end
 end
 
 # Основная функция
 module Main
-  def self.run(source_folder, output_folder, max_size_mb)
+  def self.run(source_folder, output_dir, size_mb)
     FFMPEGHelper.check_ffmpeg_installed
 
     unless Dir.exist?(source_folder)
@@ -44,13 +43,13 @@ module Main
       return
     end
 
-    FileUtils.mkdir_p(output_folder)
+    FileUtils.mkdir_p(output_dir)
 
-    Dir.glob(File.join(source_folder, '*')).each do |file_path|
-      next unless File.file?(file_path)
+    Dir.glob(File.join(source_folder, '*')).each do |source_dir|
+      next unless File.file?(source_dir)
 
-      file_output_folder = File.join(output_folder, File.basename(file_path, '.*'))
-      VideoProcessor.split_video(file_path, file_output_folder, max_size_mb)
+      file_output_dir = File.join(output_dir, File.basename(source_dir, '.*'))
+      VideoProcessor.split_video(source_dir, file_output_dir, size_mb)
     end
   end
 end
