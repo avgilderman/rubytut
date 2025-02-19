@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
-require_relative File.join(__dir__, 'lib', 'gem_manager')
+# цепляем мои файлы с модулями
+require_relative 'methods'
+require_relative 'avglib'
 
 # Конфигурация
+MAX_SIZE_MB = 950 # каким размером делать каждый файл?
 SOURCE_FOLDER = File.join(__dir__, 'videos')
 OUTPUT_FOLDER = File.join(__dir__, 'output')
-MAX_SIZE_MB = 950
-FFMPEG_PATH = nil # example: 'C:/ffmpeg/bin/ffmpeg.exe'
+folders = [SOURCE_FOLDER, OUTPUT_FOLDER]
+FFMPEG_PATH = '/usr/bin/ffmpeg' # путь для linux debian
 
-
-main
+AVGlib.rootdir
+AVGlib.create_folders(folders)
