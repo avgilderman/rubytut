@@ -15,15 +15,28 @@ module FFMPEG
     raise 'FFmpeg не найден. https://ffmpeg.org/download.html'
   end
 
+  # узнать количество частей, на которые нужно разрубить видеофайл
+  def how_many_parts(file_path, max_size_part)
+    filesize_bytes = File.size(file_path)
+    filesize_mb = ((filesize_bytes / 1024) / 1024).to_i
+    (filesize_mb / max_size_part).ceil
+  end
+
+  # узнать какая длинна должна быть у каждой части
+  def part_duration(file_path, parts_count)
+    video = FFMPEG::Movie.new(file_path)
+    (video.duration / 60.0) / parts_count
+  end
+
   # Разделение видео на части
   def self.split_video(source_dir, output_dir, size_mb)
     filename = File.basename(source_dir, File.extname(source_dir)) # имя файла из source_dir без расширения и пути
-    output_pattern = File.join(output_dir, "#{filename}_part%03d.mp4")
+    output_pattern = File.join(output_dir, "#{filename}_part_%03d.mp4")
 
     command = [
       'ffmpeg', '-i', source_dir,
       '-c', 'copy', '-map', '0',
-      '-f', 'segment', '-segment_size', (size_mb * 1024 * 1024).to_s, # что за шляпааа?
+      '-f', 'segment', '-segment_time', '600',
       '-reset_timestamps', '1',
       output_pattern
     ]
