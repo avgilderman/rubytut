@@ -17,6 +17,7 @@ module AVGlib
   def self.create_folders(folders)
     folders.each do |folder|
       FileUtils.mkdir_p(folder)
+      puts "Папка #{folder} создана"
     rescue StandardError => e
       puts "Ошибка создания папки '#{folder}': #{e.message}"
     end

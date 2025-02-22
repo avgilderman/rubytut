@@ -16,23 +16,32 @@ module FFMPEG
   end
 
   # узнать количество частей, на которые нужно разрубить видеофайл
-  def how_many_parts(file_path, max_size_part)
+  def self.how_many_parts(file_path, max_size_part)
     filesize_bytes = File.size(file_path)
     filesize_mb = ((filesize_bytes / 1024) / 1024).to_i
     (filesize_mb / max_size_part).ceil
   end
 
   # узнать какая длинна должна быть у каждой части
-  def part_duration(file_path, parts_count)
+  def self.part_duration(file_path, parts_count)
     video = FFMPEG::Movie.new(file_path)
     (video.duration / 60.0) / parts_count
   end
 
-  # Разделение видео на части
-  def self.split_video(source_dir, output_dir, size_mb)
-    filename = File.basename(source_dir, File.extname(source_dir)) # имя файла из source_dir без расширения и пути
-    output_pattern = File.join(output_dir, "#{filename}_part_%03d.mp4")
+  # создание папки для складирования нарубленного файла
+  def self.dir_for_parts(file, output_dir)
+    filename = File.basename(File.extname(file)) # получили имя будущего директории
+    files_dir = File.join(output_dir, filename) # паттерн создания директории для нарубленных частей
+    AVGlib.create_folders(files_dir) # создание директории
+    filename # возвращаем название папки (оно совпадает с именем исходного файла)
+  end
 
+  # возвращает имя будущей части файла
+  def self.part_name(output_dir, filename, number)
+    filename_pattern = File.join(output_dir, filename, "#{filename}_part_#{number}.mp4")
+  end
+
+  def self.split_video(source_dir, output_dir, max_size_part)
     command = [
       'ffmpeg', '-i', source_dir,
       '-c', 'copy', '-map', '0',
@@ -42,12 +51,16 @@ module FFMPEG
     ]
 
     system(*command)
-    puts "Разделение завершено: #{source_dir}"
-  end
-end
 
-# Основная функция
-module Main
+
+
+
+    puts "Разделение завершено: #{source_dir}"
+
+
+
+
+    module Main
   def self.run(source_folder, output_dir, size_mb)
     FFMPEGHelper.check_ffmpeg_installed
 
