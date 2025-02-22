@@ -29,19 +29,17 @@ module FFMPEG
   end
 
   # создание папки для складирования нарубленного файла
-  def self.dir_for_parts(file, output_dir)
-    filename = File.basename(File.extname(file)) # получили имя будущего директории
-    files_dir = File.join(output_dir, filename) # паттерн создания директории для нарубленных частей
-    AVGlib.create_folders(files_dir) # создание директории
-    filename # возвращаем название папки (оно совпадает с именем исходного файла)
+  def self.dir_for_parts(filename, output_dir)
+    name_parts_dir = File.join(output_dir, filename) # паттерн создания имени директории для нарубленных частей
+    AVGlib.create_folders(name_parts_dir) 
   end
 
-  # возвращает имя будущей части файла
-  def self.part_name(output_dir, filename, number)
-    filename_pattern = File.join(output_dir, filename, "#{filename}_part_#{number}.mp4")
-  end
+  # метод нарезки исходника
+  def self.split_video(file, filename, output_dir, max_size_part)
+    filename = File.basename(File.extname(file)) # получили имя файла
 
-  def self.split_video(source_dir, output_dir, max_size_part)
+    filename_pattern = File.join(output_dir, filename, "#{filename}_part_%03d.mp4")
+
     command = [
       'ffmpeg', '-i', source_dir,
       '-c', 'copy', '-map', '0',
@@ -49,12 +47,7 @@ module FFMPEG
       '-reset_timestamps', '1',
       output_pattern
     ]
-
     system(*command)
-
-
-
-
     puts "Разделение завершено: #{source_dir}"
 
 

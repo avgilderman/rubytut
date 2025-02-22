@@ -32,4 +32,9 @@ module AVGlib
       puts 'Gemfile не найден в корневой директории проекта.'
     end
   end
+
+  # метод для получения имени файла
+  def self.get_filename(path_to_file)
+    File.basename(File.extname(path_to_file))
+  end
 end

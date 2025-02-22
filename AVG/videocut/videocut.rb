@@ -16,6 +16,9 @@ AVGlib.rootdir # меняем директорию - на директорию m
 folders = [SOURCE_DIR, OUTPUT_DIR] # массив основных папок
 AVGlib.create_folders(folders) # проверяем/создаем основные папки
 
+# тут удет цикл внутри папки с исходниками
+AVGlib.get_filename(path_to_file)
+
 how_many_parts(file_path, max_size_part) # !!!!!!!!!!!!!!!!!
 
 сделать что бы несколько файлов можно было класть в папку
