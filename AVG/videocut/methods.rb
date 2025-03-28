@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'avglib' # модуль с общими необходимыми методами
-AVGlib.install_gemfile # вызов метода для установки необходимых гемов
+require_relative 'avglib' # модуль с общими методами, которые будут использоваться
+AVGlib.install_gemfile # вызов метода для автоматической установки необходимых гемов
 require 'fileutils'
 require 'streamio-ffmpeg'
 
-# внутреняя работа FFMPEG
+# внутреняя работа модуля FFMPEG
 module FFMPEG
   # проверяем установлен ли ffmpeg?
   def self.ffmpeg_installed?
@@ -31,8 +31,10 @@ module FFMPEG
   # создание папки для складирования нарубленного файла
   def self.dir_for_parts(filename, output_dir)
     name_parts_dir = File.join(output_dir, filename) # паттерн создания имени директории для нарубленных частей
-    AVGlib.create_folders(name_parts_dir) 
+    AVGlib.create_folders(name_parts_dir)
   end
+
+  # попробуй
 
   # метод нарезки исходника
   def self.split_video(file, filename, output_dir, max_size_part)
@@ -50,25 +52,22 @@ module FFMPEG
     system(*command)
     puts "Разделение завершено: #{source_dir}"
 
+    def self.run(source_folder, output_dir, size_mb)
+      FFMPEGHelper.check_ffmpeg_installed
 
+      unless Dir.exist?(source_folder)
+        puts "Папка #{source_folder} не найдена!"
+        return
+      end
 
+      FileUtils.mkdir_p(output_dir)
 
-    module Main
-  def self.run(source_folder, output_dir, size_mb)
-    FFMPEGHelper.check_ffmpeg_installed
+      Dir.glob(File.join(source_folder, '*')).each do |source_dir|
+        next unless File.file?(source_dir)
 
-    unless Dir.exist?(source_folder)
-      puts "Папка #{source_folder} не найдена!"
-      return
-    end
-
-    FileUtils.mkdir_p(output_dir)
-
-    Dir.glob(File.join(source_folder, '*')).each do |source_dir|
-      next unless File.file?(source_dir)
-
-      file_output_dir = File.join(output_dir, File.basename(source_dir, '.*'))
-      VideoProcessor.split_video(source_dir, file_output_dir, size_mb)
+        file_output_dir = File.join(output_dir, File.basename(source_dir, '.*'))
+        VideoProcessor.split_video(source_dir, file_output_dir, size_mb)
+      end
     end
   end
 end

@@ -13,7 +13,7 @@ module AVGlib
     root_dir
   end
 
-  # метод для создания папок (принимает массив переменных с путями)
+  # метод для создания директорий (принимает массив переменных с путями)
   def self.create_folders(folders)
     folders.each do |folder|
       FileUtils.mkdir_p(folder)
@@ -37,4 +37,41 @@ module AVGlib
   def self.get_filename(path_to_file)
     File.basename(File.extname(path_to_file))
   end
+
+  # метод для создания списка файлов в переданной директории
+  def self.list_files(path)
+    if Dir.empty?(path)
+      puts "Файлов в #{path} нет"
+      puts 'Выходим из программы? Или что нет файлов это норм?'
+      puts 'y or n?'
+      validate_input('y', 'n')
+      exit
+    else
+      Dir.glob("#{path}/*").select { |path| File.file?(path) }
+    end
+  end
+
+  # отображает список директорий в переданной директории
+  def self.list_dirs(path)
+    if Dir.empty?(path)
+      puts "Других директорий в #{path} нет"
+      exit
+    else
+      Dir.glob("#{path}/*").select { |path| File.directory?(path) }
+    end
+  end
+
+  # проверка на валидность ввода пользователя
+  def self.validate_input(prompt, &)
+    loop do
+      puts "#{prompt}: "
+      user_input = gets.chomp
+      break user_input if yield(user_input)
+
+      puts 'Ошибка: введенное значение недопустимо. Попробуйте снова.'
+    end
+  end
+
+
+  
 end

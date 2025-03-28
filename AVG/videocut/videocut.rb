@@ -1,24 +1,26 @@
 # frozen_string_literal: true
 
-# цепляем мои файлы с модулями
-require_relative 'methods' # модуль с методами для данной программы
-require_relative 'avglib' # модуль с общими методами
+# Конфигурация программы:
+# ============================
+max_size_part = 20 # задаётся максимальный размер каждой части видеофайла
+SOURCE_DIR = File.join(__dir__, 'videos') # директория исходников
+OUTPUT_DIR = File.join(__dir__, 'output') # общая директория вывода файлов
+FFMPEG_PATH = '/usr/bin/ffmpeg' # путь до FFMPEG (для linux debian)
+# ============================
 
-# Конфигурация
-max_size_part = 2000 # задаётся максимальный размер каждой части видеофайла
-SOURCE_DIR = File.join(__dir__, 'videos') # Папка видеофайлов-исходников
-OUTPUT_DIR = File.join(__dir__, 'output') # общаая папка вывода
-FFMPEG_PATH = '/usr/bin/ffmpeg' # путь до FFMPEG для linux debian
+# Подключения файлов с функциями
+require_relative 'methods'
+require_relative 'avglib'
 
-# логика программы
-# подготовка
-AVGlib.rootdir # меняем директорию - на директорию main файла
-folders = [SOURCE_DIR, OUTPUT_DIR] # массив основных папок
-AVGlib.create_folders(folders) # проверяем/создаем основные папки
+main_dir = [SOURCE_DIR, OUTPUT_DIR] # массив путей основных директорий
+AVGlib.rootdir # переходим в корневую папку проекта
+FFMPEG.ffmpeg_installed? # проверка установки инструмента
+AVGlib.create_folders(main_dir) # проверка/создание основных директорий
 
-# тут удет цикл внутри папки с исходниками
-AVGlib.get_filename(path_to_file)
+input_files = AVGlib.list_files(SOURCE_DIR) # создаем список файлов для обработки
 
-how_many_parts(file_path, max_size_part) # !!!!!!!!!!!!!!!!!
+output_files = source_files.map
 
-сделать что бы несколько файлов можно было класть в папку
+created_files = []
+
+how_many_parts = FFMPEG.how_many_parts
