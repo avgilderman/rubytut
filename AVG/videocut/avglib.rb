@@ -33,7 +33,7 @@ module AVGlib
     end
   end
 
-  # метод для получения имени файла
+  # метод для получения имени файла (Проверить работу)
   def self.get_filename(path_to_file)
     File.basename(File.extname(path_to_file))
   end
